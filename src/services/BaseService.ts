@@ -7,7 +7,6 @@ export abstract class BaseService {
 
   constructor() {
     this.client = new AxiosHttpClient('http://127.0.0.1:5000');
-    console.log('conssssss');
   }
 
   protected get<T, P = Record<string, any>>(url: string, params?: P): Promise<T> {
