@@ -1,6 +1,35 @@
 import React from "react";
 import { Box } from "@mui/material";
 
+const Arrow = ({ direction }: { direction: "right" | "down" }) => {
+  const transform =
+    direction === "right" ? "rotate(-45deg)" : "rotate(45deg)"; // Handle rotation based on direction
+
+  return (
+    <Box
+      sx={{
+        display: {
+          xs: direction === "right" ? "none" : "flex", // Down arrow on small screens
+          sm: direction === "right" ? "flex" : "none", // Right arrow on large screens
+        },
+        justifyContent: "center",
+        alignItems: "center",
+        height: direction === "right" ? "150px" : "50px", // Right arrow is larger, down arrow is smaller
+        "& span": {
+          display: "inline-block",
+          border: "solid black",
+          borderWidth: "0 4px 4px 0",
+          padding: "10px",
+          transform: transform,
+          marginTop: direction === "down" ? "10px" : "0", // Add margin for down arrow
+        },
+      }}
+    >
+      <span></span>
+    </Box>
+  );
+};
+
 const App = () => {
   const contentBoxes = [
     "Content Box 1",
@@ -75,43 +104,10 @@ const App = () => {
               }}
             >
               {/* Right Arrow (Visible on larger screens) */}
-              <Box
-                sx={{
-                  display: { xs: "none", sm: "flex" },
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "150px",
-                  "& span": {
-                    display: "inline-block",
-                    border: "solid black",
-                    borderWidth: "0 4px 4px 0",
-                    padding: "10px",
-                    transform: "rotate(-45deg)", // Right arrow on larger screens
-                  },
-                }}
-              >
-                <span></span>
-              </Box>
+              <Arrow direction="right" />
 
               {/* Down Arrow (Visible on small screens) */}
-              <Box
-                sx={{
-                  display: { xs: "flex", sm: "none" },
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "50px",
-                  "& span": {
-                    display: "inline-block",
-                    border: "solid black",
-                    borderWidth: "0 4px 4px 0",
-                    padding: "10px",
-                    transform: "rotate(45deg)", // Down arrow for small screens (vertical layout)
-                    marginTop: "10px",
-                  },
-                }}
-              >
-                <span></span>
-              </Box>
+              <Arrow direction="down" />
             </Box>
           )}
         </React.Fragment>
